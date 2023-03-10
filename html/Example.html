@@ -1,0 +1,343 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Example</title><meta name="generator" content="MATLAB 9.3"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-04-22"><meta name="DC.source" content="Example.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Example</h1><!--introduction--><p>The Critical flutter velocity is computed for 2 single-span suspension bridges: One with a main span of 1.2 km and the other one with the main span of 0.45 km. The coupling of the lateral, vertical and torsional motions of the bridge are accounted for the calculation of the critical velocity. The function flutterFD estimates the flutter velocity using [1]. For comparison, the Selberg's [2] and Rocard's [3] algorithm are also used (function VcrFlutter).</p><p>References</p><p>[1] Jain, A., Jones, N. P., &amp; Scanlan, R. H. (1996). Coupled aeroelastic and aerodynamic response analysis of long-span bridges. Journal of Wind Engineering and Industrial Aerodynamics, 60, 69-80.</p><p>[2] Selberg, A., &amp; Hansen, E. H. (1966). Aerodynamic stability and related aspects of suspension bridges.</p><p>[3] Rocard, Y. (1963). Instabilite des ponts suspendus dans le vent-experiences sur modele reduit. Nat. Phys. Lab. Paper, 10.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Case of a suspension bridge with a main-span of 1200 m</a></li><li><a href="#2">Case of the Lysefjord Bridge (main-span of 446 m)</a></li></ul></div><h2 id="1">Case of a suspension bridge with a main-span of 1200 m</h2><pre class="codeinput">clearvars;close <span class="string">all</span>;clc;
+<span class="comment">% Input the bridge parameters</span>
+<span class="comment">% Modal parameters</span>
+load(<span class="string">'modalParameters_case1.mat'</span>,<span class="string">'wn'</span>,<span class="string">'phi'</span>);
+<span class="comment">% load the mode shapes and eigen frequencies</span>
+<span class="comment">% The modal parameters can be computed using another Matlab FileExchange</span>
+<span class="comment">% submission available here:</span>
+<span class="comment">% https://se.mathworks.com/matlabcentral/fileexchange/51815-calculation-of-the-modal-parameters-of-a-suspension-bridge</span>
+
+[Ndof,Nmodes,Nyy] = size(phi);
+Bridge.wn= wn; <span class="comment">% eigen frequencies  (rad/s)</span>
+Bridge.phi= phi; <span class="comment">% Mode shapes</span>
+Bridge.zetaStruct = 5e-3*ones(Ndof,Nmodes); <span class="comment">% structural modal damping ratios, chosen as the same for every mode.</span>
+
+<span class="comment">% Structural parameters</span>
+Bridge.L = 1200 ; <span class="comment">% length of main span (m)</span>
+Bridge.B = 20 ; <span class="comment">% deck width (m)</span>
+Bridge.D = 3; <span class="comment">% Deck height (m)</span>
+Bridge.m =13e3 ; <span class="comment">% lineic mass of the girder + the two main cables (kg/m)</span>
+Bridge.m_theta = 0.43e6; <span class="comment">%kg.m^2/m torsional mass</span>
+
+<span class="comment">% static coefficient for lift and overturning moment</span>
+Bridge.Cd = 1;<span class="comment">% drag coefficient</span>
+Bridge.dCd = 0;<span class="comment">% first derivative of the drag coefficient</span>
+Bridge.Cl = -0.3;<span class="comment">% lift coefficient</span>
+Bridge.dCl = 3.0;<span class="comment">% first derivative of the lift coefficient</span>
+Bridge.Cm = 0.01 ;<span class="comment">% Overturning moment coefficient</span>
+Bridge.dCm = 0.5 ;<span class="comment">% first derivative of the overturning moment coefficient</span>
+
+
+<span class="comment">% Compute the critical flutter velocity</span>
+[Ucr,wCr,meanU] = flutterFD(Bridge,<span class="string">'Nfreq'</span>,2000,<span class="string">'Niter'</span>,300);
+
+
+<span class="comment">% Comparison with selberg's method (2 expressions) and Rocard's method:</span>
+fz = Bridge.wn(2,2)./(2*pi); <span class="comment">% Mode HS1</span>
+ftheta= Bridge.wn(3,1)./(2*pi); <span class="comment">% mode TS1</span>
+[Vcr] = VcrFlutter(Bridge.B,Bridge.m,Bridge.m_theta,fz,ftheta,<span class="string">'method'</span>,<span class="string">'Selberg1'</span>);
+fprintf([<span class="string">' Cricial flutter velocity with Selberg''s formula 1 is: '</span>,num2str(Vcr,4),<span class="string">' m/s \n'</span>])
+
+[Vcr] = VcrFlutter(Bridge.B,Bridge.m,Bridge.m_theta,fz,ftheta,<span class="string">'method'</span>,<span class="string">'Selberg2'</span>);
+fprintf([<span class="string">' Cricial flutter velocity with Selberg''s formula 2 is: '</span>,num2str(Vcr,4),<span class="string">' m/s \n'</span>])
+
+[Vcr] = VcrFlutter(Bridge.B,Bridge.m,Bridge.m_theta,fz,ftheta,<span class="string">'method'</span>,<span class="string">'Rocard'</span>);
+fprintf([<span class="string">' Cricial flutter velocity with Rocard''s formula is: '</span>,num2str(Vcr,4),<span class="string">' m/s \n'</span>])
+
+
+<span class="comment">% Display the variation of the eigen freqiencies with the mean wind</span>
+<span class="comment">% velocity</span>
+clf,close <span class="string">all</span>;
+figure
+title(<span class="string">' Variation of some of the eigen-frequencies with the mean wind velocity'</span>)
+hold <span class="string">on</span>; box <span class="string">on</span>;
+plot(meanU,squeeze(wCr(:,3,1))/(2*pi),<span class="string">'r'</span>)
+plot(meanU,squeeze(wCr(:,2,2:3))/(2*pi),<span class="string">'k'</span>)
+ylim([0,0.5])
+grid <span class="string">on</span>; box <span class="string">on</span>;
+grid <span class="string">minor</span>
+xlabel(<span class="string">'U (m/s)'</span>);
+ylabel(<span class="string">'f (Hz)'</span>);
+legend(<span class="string">'TS1'</span>,<span class="string">'VS1'</span>,<span class="string">'VS2'</span>)
+set(gcf,<span class="string">'color'</span>,<span class="string">'w'</span>)
+</pre><pre class="codeoutput">Critical velocity for coupled flutter found! 
+Vcr = 62.391 m/s 
+ Cricial flutter velocity with Selberg's formula 1 is: 65.82 m/s 
+ Cricial flutter velocity with Selberg's formula 2 is: 65.64 m/s 
+ Cricial flutter velocity with Rocard's formula is: 65.39 m/s 
+</pre><img vspace="5" hspace="5" src="Example_01.png" alt=""> <h2 id="2">Case of the Lysefjord Bridge (main-span of 446 m)</h2><pre class="codeinput">clearvars;close <span class="string">all</span>;
+load(<span class="string">'modalParameters_case2.mat'</span>);
+
+[Ndof,Nmodes,Nyy] = size(phi);
+Bridge.wn= wn; <span class="comment">% eigen frequencies  (rad/s)</span>
+Bridge.phi= phi; <span class="comment">% Mode shapes</span>
+Bridge.zetaStruct = 5e-3*ones(Ndof,Nmodes); <span class="comment">% structural modal damping ratios, chosen as the same for every mode.</span>
+
+
+<span class="comment">% Structural parameters</span>
+Bridge.L = 446 ; <span class="comment">% length of the main span (m)</span>
+Bridge.B = 12.3 ; <span class="comment">% deck width (m)</span>
+Bridge.D = 2.76; <span class="comment">% Deck height (m)</span>
+Bridge.m = 6166;  <span class="comment">% lineic mass of the girder + the two main cables (kg/m)</span>
+Bridge.m_theta = 59e3; <span class="comment">%kg.m^2/m torsional mass</span>
+
+<span class="comment">% static coefficient for lift and overturning moment</span>
+Bridge.Cd = 1;<span class="comment">% drag coefficient</span>
+Bridge.dCd = 0;<span class="comment">% first derivative of the drag coefficient</span>
+Bridge.Cl = 0.1;<span class="comment">% lift coefficient</span>
+Bridge.dCl = 3.0;<span class="comment">% first derivative of the lift coefficient</span>
+Bridge.Cm = 0.01 ;<span class="comment">% Overturning moment coefficient</span>
+Bridge.dCm = 1 ;<span class="comment">% first derivative of the overturning moment coefficient</span>
+
+<span class="comment">% Compute the critical flutter velocity</span>
+[Ucr,wCr,meanU] = flutterFD(Bridge,<span class="string">'Nfreq'</span>,2000,<span class="string">'Niter'</span>,200,<span class="string">'Umin'</span>,50,<span class="string">'Umax'</span>,200);
+
+<span class="comment">% Comparison with selberg's method (2 expressions) and Rocard's method:</span>
+fz = wn(2,2)./(2*pi); <span class="comment">% Mode HS1</span>
+ftheta= wn(3,1)./(2*pi); <span class="comment">% mode TS1</span>
+[Vcr] = VcrFlutter(Bridge.B,Bridge.m,Bridge.m_theta,fz,ftheta,<span class="string">'method'</span>,<span class="string">'Selberg1'</span>);
+fprintf([<span class="string">' Cricial flutter velocity with Selberg''s formula 1 is: '</span>,num2str(Vcr,4),<span class="string">' m/s \n'</span>])
+
+[Vcr] = VcrFlutter(Bridge.B,Bridge.m,Bridge.m_theta,fz,ftheta,<span class="string">'method'</span>,<span class="string">'Selberg2'</span>);
+fprintf([<span class="string">' Cricial flutter velocity with Selberg''s formula 2 is: '</span>,num2str(Vcr,4),<span class="string">' m/s \n'</span>])
+
+[Vcr] = VcrFlutter(Bridge.B,Bridge.m,Bridge.m_theta,fz,ftheta,<span class="string">'method'</span>,<span class="string">'Rocard'</span>);
+fprintf([<span class="string">' Cricial flutter velocity with Rocard''s formula is: '</span>,num2str(Vcr,4),<span class="string">' m/s \n'</span>])
+
+
+<span class="comment">% Display the variation of the eigen freqiencies with the mean wind</span>
+<span class="comment">% velocity</span>
+clf,close <span class="string">all</span>;
+figure
+title(<span class="string">' Variation of some of the eigen-frequencies with the mean wind velocity'</span>)
+hold <span class="string">on</span>; box <span class="string">on</span>;
+plot(meanU,squeeze(wCr(:,3,1))/(2*pi),<span class="string">'r'</span>)
+plot(meanU,squeeze(wCr(:,2,2:3))/(2*pi),<span class="string">'k'</span>)
+ylim([0,1.5])
+grid <span class="string">on</span>;
+grid <span class="string">minor</span>
+xlabel(<span class="string">'U (m/s)'</span>);
+ylabel(<span class="string">'f (Hz)'</span>);
+legend(<span class="string">'TS1'</span>,<span class="string">'VS1'</span>,<span class="string">'VS2'</span>)
+set(gcf,<span class="string">'color'</span>,<span class="string">'w'</span>)
+</pre><pre class="codeoutput">Critical velocity for coupled flutter found! 
+Vcr = 140.45 m/s 
+ Cricial flutter velocity with Selberg's formula 1 is: 154.3 m/s 
+ Cricial flutter velocity with Selberg's formula 2 is: 153.9 m/s 
+ Cricial flutter velocity with Rocard's formula is: 150.6 m/s 
+</pre><img vspace="5" hspace="5" src="Example_02.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2017b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Example
+% 
+% The Critical flutter velocity is computed for 2 single-span suspension
+% bridges: One with a main span of 1.2 km and the other one with the main span
+% of 0.45 km. The coupling of the lateral, vertical and torsional motions of the bridge are
+% accounted for the calculation of the critical velocity. The function
+% flutterFD estimates the flutter velocity using [1]. For comparison, the
+% Selberg's [2] and Rocard's [3] algorithm are also used (function VcrFlutter).
+%  
+% References
+% 
+% [1] Jain, A., Jones, N. P., & Scanlan, R. H. (1996). 
+% Coupled aeroelastic and aerodynamic response analysis of long-span bridges.
+% Journal of Wind Engineering and Industrial Aerodynamics, 60, 69-80.
+% 
+% [2] Selberg, A., & Hansen, E. H. (1966). Aerodynamic stability and related aspects of suspension bridges.
+% 
+% [3] Rocard, Y. (1963). Instabilite des ponts suspendus dans le vent-experiences sur modele reduit. Nat. Phys. Lab. Paper, 10.
+% 
+
+%% Case of a suspension bridge with a main-span of 1200 m
+
+clearvars;close all;clc;
+% Input the bridge parameters
+% Modal parameters
+load('modalParameters_case1.mat','wn','phi');
+% load the mode shapes and eigen frequencies 
+% The modal parameters can be computed using another Matlab FileExchange
+% submission available here:
+% https://se.mathworks.com/matlabcentral/fileexchange/51815-calculation-of-the-modal-parameters-of-a-suspension-bridge
+
+[Ndof,Nmodes,Nyy] = size(phi);
+Bridge.wn= wn; % eigen frequencies  (rad/s)
+Bridge.phi= phi; % Mode shapes
+Bridge.zetaStruct = 5e-3*ones(Ndof,Nmodes); % structural modal damping ratios, chosen as the same for every mode.
+
+% Structural parameters
+Bridge.L = 1200 ; % length of main span (m) 
+Bridge.B = 20 ; % deck width (m)
+Bridge.D = 3; % Deck height (m)
+Bridge.m =13e3 ; % lineic mass of the girder + the two main cables (kg/m) 
+Bridge.m_theta = 0.43e6; %kg.m^2/m torsional mass
+
+% static coefficient for lift and overturning moment
+Bridge.Cd = 1;% drag coefficient
+Bridge.dCd = 0;% first derivative of the drag coefficient
+Bridge.Cl = -0.3;% lift coefficient 
+Bridge.dCl = 3.0;% first derivative of the lift coefficient
+Bridge.Cm = 0.01 ;% Overturning moment coefficient
+Bridge.dCm = 0.5 ;% first derivative of the overturning moment coefficient
+
+
+% Compute the critical flutter velocity
+[Ucr,wCr,meanU] = flutterFD(Bridge,'Nfreq',2000,'Niter',300);
+
+
+% Comparison with selberg's method (2 expressions) and Rocard's method:
+fz = Bridge.wn(2,2)./(2*pi); % Mode HS1
+ftheta= Bridge.wn(3,1)./(2*pi); % mode TS1
+[Vcr] = VcrFlutter(Bridge.B,Bridge.m,Bridge.m_theta,fz,ftheta,'method','Selberg1');
+fprintf([' Cricial flutter velocity with Selberg''s formula 1 is: ',num2str(Vcr,4),' m/s \n'])
+
+[Vcr] = VcrFlutter(Bridge.B,Bridge.m,Bridge.m_theta,fz,ftheta,'method','Selberg2');
+fprintf([' Cricial flutter velocity with Selberg''s formula 2 is: ',num2str(Vcr,4),' m/s \n'])
+
+[Vcr] = VcrFlutter(Bridge.B,Bridge.m,Bridge.m_theta,fz,ftheta,'method','Rocard');
+fprintf([' Cricial flutter velocity with Rocard''s formula is: ',num2str(Vcr,4),' m/s \n'])
+
+
+% Display the variation of the eigen freqiencies with the mean wind
+% velocity
+clf,close all;
+figure
+title(' Variation of some of the eigen-frequencies with the mean wind velocity')
+hold on; box on;
+plot(meanU,squeeze(wCr(:,3,1))/(2*pi),'r')
+plot(meanU,squeeze(wCr(:,2,2:3))/(2*pi),'k')
+ylim([0,0.5])
+grid on; box on;
+grid minor
+xlabel('U (m/s)');
+ylabel('f (Hz)');
+legend('TS1','VS1','VS2')
+set(gcf,'color','w')
+%% Case of the Lysefjord Bridge (main-span of 446 m)
+clearvars;close all;
+load('modalParameters_case2.mat');
+
+[Ndof,Nmodes,Nyy] = size(phi);
+Bridge.wn= wn; % eigen frequencies  (rad/s)
+Bridge.phi= phi; % Mode shapes
+Bridge.zetaStruct = 5e-3*ones(Ndof,Nmodes); % structural modal damping ratios, chosen as the same for every mode.
+
+
+% Structural parameters
+Bridge.L = 446 ; % length of the main span (m) 
+Bridge.B = 12.3 ; % deck width (m)
+Bridge.D = 2.76; % Deck height (m)
+Bridge.m = 6166;  % lineic mass of the girder + the two main cables (kg/m)  
+Bridge.m_theta = 59e3; %kg.m^2/m torsional mass
+
+% static coefficient for lift and overturning moment
+Bridge.Cd = 1;% drag coefficient
+Bridge.dCd = 0;% first derivative of the drag coefficient
+Bridge.Cl = 0.1;% lift coefficient 
+Bridge.dCl = 3.0;% first derivative of the lift coefficient
+Bridge.Cm = 0.01 ;% Overturning moment coefficient
+Bridge.dCm = 1 ;% first derivative of the overturning moment coefficient
+
+% Compute the critical flutter velocity
+[Ucr,wCr,meanU] = flutterFD(Bridge,'Nfreq',2000,'Niter',200,'Umin',50,'Umax',200);
+
+% Comparison with selberg's method (2 expressions) and Rocard's method:
+fz = wn(2,2)./(2*pi); % Mode HS1
+ftheta= wn(3,1)./(2*pi); % mode TS1
+[Vcr] = VcrFlutter(Bridge.B,Bridge.m,Bridge.m_theta,fz,ftheta,'method','Selberg1');
+fprintf([' Cricial flutter velocity with Selberg''s formula 1 is: ',num2str(Vcr,4),' m/s \n'])
+
+[Vcr] = VcrFlutter(Bridge.B,Bridge.m,Bridge.m_theta,fz,ftheta,'method','Selberg2');
+fprintf([' Cricial flutter velocity with Selberg''s formula 2 is: ',num2str(Vcr,4),' m/s \n'])
+
+[Vcr] = VcrFlutter(Bridge.B,Bridge.m,Bridge.m_theta,fz,ftheta,'method','Rocard');
+fprintf([' Cricial flutter velocity with Rocard''s formula is: ',num2str(Vcr,4),' m/s \n'])
+
+
+% Display the variation of the eigen freqiencies with the mean wind
+% velocity
+clf,close all;
+figure
+title(' Variation of some of the eigen-frequencies with the mean wind velocity')
+hold on; box on;
+plot(meanU,squeeze(wCr(:,3,1))/(2*pi),'r')
+plot(meanU,squeeze(wCr(:,2,2:3))/(2*pi),'k')
+ylim([0,1.5])
+grid on;
+grid minor
+xlabel('U (m/s)');
+ylabel('f (Hz)');
+legend('TS1','VS1','VS2')
+set(gcf,'color','w')
+
+
+
+%%
+##### SOURCE END #####
+--></body></html>
